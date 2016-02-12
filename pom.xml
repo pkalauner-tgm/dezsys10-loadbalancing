@@ -12,6 +12,7 @@
     <modules>
         <module>loadbalancer</module>
         <module>server</module>
+        <module>client</module>
     </modules>
 
     <properties>
