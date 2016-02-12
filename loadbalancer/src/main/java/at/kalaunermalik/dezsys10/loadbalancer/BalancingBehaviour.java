@@ -1,5 +1,7 @@
 package at.kalaunermalik.dezsys10.loadbalancer;
 
+import java.util.Set;
+
 /**
  * Represents a Balancing Behaviour
  *
@@ -10,6 +12,7 @@ public interface BalancingBehaviour {
 
     /**
      * Choses the server
+     * @param server
      */
-    void chooseServer();
+    Object chooseServer(Set server);
 }

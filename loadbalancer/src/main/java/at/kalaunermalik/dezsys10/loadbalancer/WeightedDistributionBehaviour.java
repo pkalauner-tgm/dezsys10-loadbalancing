@@ -9,7 +9,7 @@ package at.kalaunermalik.dezsys10.loadbalancer;
 
 public class WeightedDistributionBehaviour implements BalancingBehaviour{
     @Override
-    public void chooseServer() {
+    public void chooseServer(Set server) {
 
     }
 }
