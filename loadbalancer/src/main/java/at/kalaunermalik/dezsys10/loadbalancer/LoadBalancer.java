@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * LoadBalancer
  *
- * @author Paul Kalauner
+ * @author Paul Kalauner 5BHIT
  * @version 20161202.1
  */
 public class LoadBalancer {
