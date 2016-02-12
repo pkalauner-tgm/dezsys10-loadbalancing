@@ -1,5 +1,8 @@
 package at.kalaunermalik.dezsys10.loadbalancer;
 
+import at.kalaunermalik.dezsys10.loadbalancer.connection.ClientSocketHandler;
+import at.kalaunermalik.dezsys10.loadbalancer.connection.ServerSocketHandler;
+
 /**
  * Actual balancer
  *
@@ -8,9 +11,16 @@ package at.kalaunermalik.dezsys10.loadbalancer;
  */
 public class Balancing {
     private BalancingBehaviour behaviour;
+    private ClientSocketHandler csh;
+    private ServerSocketHandler ssh;
 
     public Balancing(BalancingBehaviour behaviour) {
         this.behaviour = behaviour;
+    }
+
+    private void initSockets() {
+        this.csh = new ClientSocketHandler(17171);
+        this.ssh = new ServerSocketHandler(17172);
     }
 
     public void balance() {
