@@ -1,5 +1,7 @@
 package at.kalaunermalik.dezsys10.loadbalancer;
 
+import at.kalaunermalik.dezsys10.loadbalancer.connection.ServerThread;
+
 import java.util.Set;
 
 /**
@@ -12,7 +14,7 @@ public interface BalancingBehaviour {
 
     /**
      * Choses the server
-     * @param server
+     * @param server all connected servers
      */
-    Object chooseServer(Set server);
+    ServerThread chooseServer(Set<ServerThread> server);
 }

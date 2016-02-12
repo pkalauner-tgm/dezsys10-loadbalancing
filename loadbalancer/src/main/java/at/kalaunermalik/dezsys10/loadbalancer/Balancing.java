@@ -2,6 +2,7 @@ package at.kalaunermalik.dezsys10.loadbalancer;
 
 import at.kalaunermalik.dezsys10.loadbalancer.connection.ClientSocketHandler;
 import at.kalaunermalik.dezsys10.loadbalancer.connection.ServerSocketHandler;
+import at.kalaunermalik.dezsys10.loadbalancer.connection.ServerThread;
 
 /**
  * Actual balancer
@@ -24,6 +25,6 @@ public class Balancing {
     }
 
     public void balance() {
-        this.behaviour.chooseServer();
+        ServerThread chosenServer = this.behaviour.chooseServer(this.ssh.getServer());
     }
 }
