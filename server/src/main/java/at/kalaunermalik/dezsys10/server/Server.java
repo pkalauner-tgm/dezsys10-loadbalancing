@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Server {
     private static final Logger LOGGER = LogManager.getLogger(Server.class);
-    private static int DECIMAL_PLACES = 150000;
+    private static final int DECIMAL_PLACES = 150000;
 
     /**
      * Main-Method
