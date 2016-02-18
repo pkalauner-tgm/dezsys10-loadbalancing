@@ -17,6 +17,8 @@ public class Balancing {
 
     public Balancing(BalancingBehaviour behaviour) {
         this.behaviour = behaviour;
+        this.initSockets();
+        this.csh.start();
     }
 
     private void initSockets() {

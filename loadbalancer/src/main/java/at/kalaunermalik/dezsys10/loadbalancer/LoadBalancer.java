@@ -11,6 +11,11 @@ import org.apache.logging.log4j.Logger;
  */
 public class LoadBalancer {
     private static final Logger LOGGER = LogManager.getLogger(LoadBalancer.class);
+    private Balancing balancer;
+
+    public LoadBalancer(Balancing balancer){
+        this.balancer = balancer;
+    }
 
     /**
      * Main-Method
@@ -18,5 +23,6 @@ public class LoadBalancer {
      */
     public static void main(String[] args) {
         LOGGER.info("Starting LoadBalancer...");
+        LoadBalancer lb = new LoadBalancer(new Balancing(new LeastConnectionsBehaviour()));
     }
 }
