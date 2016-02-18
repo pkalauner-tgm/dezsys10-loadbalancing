@@ -14,7 +14,7 @@ public class PiCalculation {
     private static final BigDecimal TWO = new BigDecimal(2);
     private static final BigDecimal FOUR = new BigDecimal(4);
 
-    public BigDecimal calculatePi(int decimalPlaces) {
+    public static BigDecimal calculatePi(int decimalPlaces) {
         BigDecimal a = BigDecimal.ONE;
         BigDecimal b = BigDecimal.ONE.divide(sqrt(TWO, decimalPlaces), decimalPlaces, BigDecimal.ROUND_HALF_UP);
         BigDecimal t = new BigDecimal(0.25);

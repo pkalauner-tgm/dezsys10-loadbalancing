@@ -1,6 +1,6 @@
 package at.kalaunermalik.dezsys10.loadbalancer;
 
-import at.kalaunermalik.dezsys10.loadbalancer.connection.ServerThread;
+import at.kalaunermalik.dezsys10.loadbalancer.connection.ClientThread;
 
 import java.util.Set;
 
@@ -12,7 +12,9 @@ import java.util.Set;
  */
 public class LeastConnectionsBehaviour implements BalancingBehaviour {
     @Override
-    public ServerThread chooseServer(Set<ServerThread> server) {
-        return null; //TODO
+    public ClientThread chooseServer(Set<ClientThread> server) {
+        for (ClientThread ct : server)
+            return ct; // TODO
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package at.kalaunermalik.dezsys10.client;
 
 
+import at.kalaunermalik.dezsys10.client.connection.ClientSocket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,13 +21,15 @@ public class Client {
     private static final Logger LOGGER = LogManager.getLogger(Client.class);
     private static final String LB_URL = "localhost";
     private static final int LB_PORT = 17171;
-
-    private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
+    private ClientSocket cs;
 
     public Client() throws IOException {
-        this.initSockets();
+        this.cs = new ClientSocket(LB_URL, LB_PORT);
+        this.cs.start();
+    }
+
+    private void sendNumber(int number){
+        this.cs.sendMessage(String.valueOf(number));
     }
 
     /**
@@ -35,16 +38,14 @@ public class Client {
      */
     public static void main(String[] args) throws IOException {
         LOGGER.info("Starting Client...");
-        Client client = new Client();
-    }
-
-    private void sendNumber(int number){
-
-    }
-
-    private void initSockets() throws IOException {
-        this.socket = new Socket(LB_URL, LB_PORT);
-        this.out = new PrintWriter(socket.getOutputStream());
-        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        int decimalPlaces = 100000;
+        if (args.length >= 1) {
+            try {
+                decimalPlaces = Integer.parseInt(args[0]);
+            } catch (NumberFormatException nfe) {
+                System.out.println("Invalid number, using " + decimalPlaces + " decimal places");
+            }
+        }
+        new Client().sendNumber(decimalPlaces);
     }
 }

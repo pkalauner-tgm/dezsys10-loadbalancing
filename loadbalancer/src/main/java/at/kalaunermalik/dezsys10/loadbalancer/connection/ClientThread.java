@@ -17,7 +17,7 @@ import java.net.Socket;
  */
 public class ClientThread extends Thread {
     private static final Logger LOGGER = LogManager.getLogger(ClientThread.class);
-    private ClientSocketHandler sh;
+    private SocketHandler sh;
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
@@ -27,7 +27,7 @@ public class ClientThread extends Thread {
      *
      * @param socket socket
      */
-    public ClientThread(ClientSocketHandler sh, Socket socket) {
+    public ClientThread(SocketHandler sh, Socket socket) {
         LOGGER.info("New Client connected: " + socket.getInetAddress());
         this.sh = sh;
         this.socket = socket;
@@ -56,9 +56,9 @@ public class ClientThread extends Thread {
         }
     }
 
-    private void handleCommand(String inputLine) {
+    public String getIp() {
+        return this.socket.getInetAddress().toString();
     }
-
     /**
      * Waits for commands
      */
@@ -67,13 +67,15 @@ public class ClientThread extends Thread {
         try {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                this.handleCommand(inputLine);
+                if (inputLine.equalsIgnoreCase("disconnect"))
+                    break;
+                else
+                    sh.ch.handleCommand(this, inputLine);
             }
         } catch (Exception e) {
             LOGGER.error("Error " + e.getMessage());
         }
-        LOGGER.info("Client disconnected: " + socket.getInetAddress());
-        this.sh.removeClient(this);
+        disconnect();
         try {
             socket.close();
         } catch (IOException e) {
@@ -81,4 +83,8 @@ public class ClientThread extends Thread {
         }
     }
 
+    private void disconnect() {
+        LOGGER.info("Client disconnected: " + socket.getInetAddress());
+        this.sh.removeClient(this);
+    }
 }
