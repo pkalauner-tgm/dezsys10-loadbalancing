@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles new incoming connections
@@ -18,7 +18,7 @@ import java.util.Set;
 public class SocketHandler extends Thread {
     private static final Logger LOGGER = LogManager.getLogger(SocketHandler.class);
     private ServerSocket serverSocket;
-    private Set<ClientThread> clients;
+    private List<ClientThread> clients;
     CommandHandler ch;
     Balancing balancing;
 
@@ -30,7 +30,7 @@ public class SocketHandler extends Thread {
     public SocketHandler(Balancing balancing, int port) {
         LOGGER.info("Creating ServerSocket");
         this.balancing = balancing;
-        this.clients = new HashSet<>();
+        this.clients = new ArrayList<>();
         try {
             this.serverSocket = new ServerSocket(port);
         } catch (IOException e) {
@@ -84,7 +84,7 @@ public class SocketHandler extends Thread {
         return this.clients.size();
     }
 
-    public Set<ClientThread> getClients() {
+    public List<ClientThread> getClients() {
         return clients;
     }
 
