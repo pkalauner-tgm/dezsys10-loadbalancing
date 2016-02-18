@@ -2,7 +2,7 @@ package at.kalaunermalik.dezsys10.loadbalancer;
 
 import at.kalaunermalik.dezsys10.loadbalancer.connection.ClientThread;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Weighted Distribution Behaviour
@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class WeightedDistributionBehaviour implements BalancingBehaviour{
     @Override
-    public ClientThread chooseServer(Set<ClientThread> server) {
-        return null; //TODO
+    public ClientThread chooseServer(List<ClientThread> server) {
+        return server.get(0); //TODO
     }
 }
