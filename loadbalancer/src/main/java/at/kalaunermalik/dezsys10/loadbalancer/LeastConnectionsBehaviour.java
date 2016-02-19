@@ -13,6 +13,10 @@ import java.util.List;
 public class LeastConnectionsBehaviour implements BalancingBehaviour {
     @Override
     public ClientThread chooseServer(List<ClientThread> server) {
-        return server.get(0); //TODO
+        ClientThread leastConns = server.get(0);
+        for(ClientThread ct : server){
+            if(ct.getOpenCalculations()<leastConns.getOpenCalculations()) leastConns = ct;
+        }
+        return leastConns;
     }
 }
