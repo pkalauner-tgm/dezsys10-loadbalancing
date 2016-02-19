@@ -23,6 +23,7 @@ public class ServerCommandHandler extends CommandHandler {
         CalculationRequest request = this.sh.balancing.getRequestByUuid(UUID.fromString(arr[0]));
         if (request != null) {
             LOGGER.info("Sending result to client " + request.getClient().getIp());
+            request.getCalculationServer().finishedCalculation();
             request.getClient().sendCommand(arr[1]);
         } else {
             LOGGER.error("No request with uuid " + arr[0] + " found!");

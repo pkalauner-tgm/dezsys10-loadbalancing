@@ -21,6 +21,7 @@ public class ClientThread extends Thread {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    private int openCalculations;
 
     /**
      * Initializes the ClientThread with the given socket
@@ -29,6 +30,7 @@ public class ClientThread extends Thread {
      */
     public ClientThread(SocketHandler sh, Socket socket) {
         LOGGER.info("New Client connected: " + socket.getInetAddress());
+        this.openCalculations = 0;
         this.sh = sh;
         this.socket = socket;
         this.initIO();
@@ -86,5 +88,17 @@ public class ClientThread extends Thread {
     private void disconnect() {
         LOGGER.info("Client disconnected: " + socket.getInetAddress());
         this.sh.removeClient(this);
+    }
+
+    public void newCalculation() {
+        this.openCalculations++;
+    }
+
+    public void finishedCalculation() {
+        this.openCalculations--;
+    }
+
+    public int getOpenCalculations() {
+        return openCalculations;
     }
 }

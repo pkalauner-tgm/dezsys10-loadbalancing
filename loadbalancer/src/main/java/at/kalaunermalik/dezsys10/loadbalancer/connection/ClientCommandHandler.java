@@ -22,6 +22,7 @@ public class ClientCommandHandler extends CommandHandler {
 
         if (request.getCalculationServer() != null) {
             LOGGER.info("Sending calculation command to server " + request.getCalculationServer().getIp());
+            request.getCalculationServer().newCalculation();
             request.getCalculationServer().sendCommand(request.getUuid().toString() + " " + command);
         } else {
             LOGGER.error("No servers available!");
