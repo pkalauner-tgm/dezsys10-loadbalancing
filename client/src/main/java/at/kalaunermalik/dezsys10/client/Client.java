@@ -41,10 +41,15 @@ public class Client {
         int decimalPlaces = 100000;
         if (args.length >= 1) {
             try {
-                decimalPlaces = Integer.parseInt(args[0]);
+                if(Integer.parseInt(args[0]) <= 0){
+                    System.out.println("Invalid number, using " + decimalPlaces + " decimal places");
+                }else {
+                    decimalPlaces = Integer.parseInt(args[0]);
+                }
             } catch (NumberFormatException nfe) {
                 System.out.println("Invalid number, using " + decimalPlaces + " decimal places");
             }
+
         }
         new Client().sendNumber(decimalPlaces);
     }
