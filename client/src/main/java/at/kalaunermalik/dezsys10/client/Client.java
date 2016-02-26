@@ -19,35 +19,43 @@ import java.net.Socket;
  */
 public class Client {
     private static final Logger LOGGER = LogManager.getLogger(Client.class);
-    private static final String LB_URL = "localhost";
+    private static String lb_url = "localhost";
     private static final int LB_PORT = 17171;
     private ClientSocket cs;
 
     public Client() throws IOException {
-        this.cs = new ClientSocket(LB_URL, LB_PORT);
+        this.cs = new ClientSocket(lb_url, LB_PORT);
         this.cs.start();
     }
 
-    private void sendNumber(int number){
+    private void sendNumber(int number) {
         this.cs.sendMessage(String.valueOf(number));
     }
 
     /**
      * Main-Method
+     *
      * @param args CLI-args
      */
     public static void main(String[] args) throws IOException {
         LOGGER.info("Starting Client...");
-        int decimalPlaces = 100000;
+
         if (args.length >= 1) {
+            lb_url = args[0];
+        } else
+            LOGGER.info("No IP specified, using " + lb_url);
+
+        int decimalPlaces = 100000;
+        if (args.length >= 2) {
             try {
-                if(Integer.parseInt(args[0]) <= 0){
+                if (Integer.parseInt(args[1]) <= 0) {
                     System.out.println("Invalid number, using " + decimalPlaces + " decimal places");
-                }else {
-                    decimalPlaces = Integer.parseInt(args[0]);
+                } else {
+                    decimalPlaces = Integer.parseInt(args[1]);
                 }
+                decimalPlaces = Integer.parseInt(args[1]);
             } catch (NumberFormatException nfe) {
-                System.out.println("Invalid number, using " + decimalPlaces + " decimal places");
+                LOGGER.info("Invalid number, using " + decimalPlaces + " decimal places");
             }
 
         }

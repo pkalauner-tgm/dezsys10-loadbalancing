@@ -19,7 +19,7 @@ import java.nio.Buffer;
  */
 public class Server {
     private static final Logger LOGGER = LogManager.getLogger(Server.class);
-    private static final String LB_URL = "localhost";
+    private static String lb_url = "localhost";
     private static final int LB_PORT = 17172;
 
     /**
@@ -28,6 +28,12 @@ public class Server {
      */
     public static void main(String[] args) throws IOException {
         LOGGER.info("Starting Server...");
-        new ClientSocket(LB_URL, LB_PORT);
+
+        if (args.length >= 1) {
+            lb_url = args[0];
+        } else
+          LOGGER.info("No IP specified, using " + lb_url);
+
+        new ClientSocket(lb_url, LB_PORT);
     }
 }
