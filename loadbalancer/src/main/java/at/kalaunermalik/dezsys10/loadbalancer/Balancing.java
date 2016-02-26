@@ -18,8 +18,11 @@ public class Balancing {
     private SocketHandler csh;
     private SocketHandler ssh;
     private Set<CalculationRequest> requests;
+    private Map<String, ClientThread> sessionPersistence;
+    public static final boolean PERSIST_SESSION = true;
 
     public Balancing(BalancingBehaviour behaviour) {
+        this.sessionPersistence = new HashMap<>();
         this.behaviour = behaviour;
         this.requests = new HashSet<>();
         this.initSockets();
@@ -36,7 +39,13 @@ public class Balancing {
     }
 
     public CalculationRequest balance(ClientThread client) {
-        ClientThread chosenServer = this.behaviour.chooseServer(this.ssh.getClients());
+        ClientThread chosenServer;
+        if(PERSIST_SESSION && sessionPersistence.containsKey(client.getIp())){
+            chosenServer = sessionPersistence.get(client.getIp());
+        }else {
+            chosenServer = this.behaviour.chooseServer(this.ssh.getClients());
+            this.sessionPersistence.put(client.getIp(), chosenServer);
+        }
         CalculationRequest request = new CalculationRequest(chosenServer, client);
         this.requests.add(request);
         return request;
