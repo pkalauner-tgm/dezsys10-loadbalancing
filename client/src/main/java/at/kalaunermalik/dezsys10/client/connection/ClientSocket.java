@@ -46,6 +46,7 @@ public class ClientSocket extends Thread {
             LOGGER.info("Connected to load balancer on " + hostname + ":" + port);
         } catch (IOException e) {
             LOGGER.error("Error while connecting to load balancer");
+            System.exit(-1);
         }
     }
 
