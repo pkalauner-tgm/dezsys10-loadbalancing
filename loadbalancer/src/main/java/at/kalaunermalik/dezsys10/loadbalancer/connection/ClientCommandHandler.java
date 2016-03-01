@@ -5,7 +5,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by Paul on 18.02.2016.
+ * Handles the commands received from the client
+ *
+ * @author Paul Kalauner 5BHIT
+ * @version 20160219.1
  */
 public class ClientCommandHandler extends CommandHandler {
     private static final Logger LOGGER = LogManager.getLogger(ClientCommandHandler.class);

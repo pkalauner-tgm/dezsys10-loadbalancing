@@ -7,7 +7,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.UUID;
 
 /**
- * Created by Paul on 18.02.2016.
+ * Handles the commands received from the server
+ *
+ * @author Paul Kalauner 5BHIT
+ * @version 20160219.1
  */
 public class ServerCommandHandler extends CommandHandler {
     private static final Logger LOGGER = LogManager.getLogger(ServerCommandHandler.class);

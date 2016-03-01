@@ -84,6 +84,11 @@ public class SocketHandler extends Thread {
         return this.clients.size();
     }
 
+    /**
+     * Gets all clients
+     *
+     * @return list of all clients
+     */
     public List<ClientThread> getClients() {
         return clients;
     }

@@ -55,6 +55,12 @@ public class Balancing {
         this.requests.remove(cr);
     }
 
+    /**
+     * Gets a CalculationRequest by the given UUID
+     *
+     * @param uuid UUID of t
+     * @return
+     */
     public CalculationRequest getRequestByUuid(UUID uuid) {
         for (CalculationRequest request : this.requests)
             if (request.getUuid().equals(uuid))
