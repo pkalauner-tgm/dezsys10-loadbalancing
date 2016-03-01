@@ -39,6 +39,9 @@ public class ClientSocket {
         this.connect();
     }
 
+    /**
+     * connects and creates the socket
+     */
     private void connect() {
         try {
             this.socket = new Socket(hostname, port);

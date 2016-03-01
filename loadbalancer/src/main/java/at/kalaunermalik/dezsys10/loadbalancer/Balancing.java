@@ -20,6 +20,9 @@ public class Balancing {
     private Set<CalculationRequest> requests;
     private Map<String, ClientThread> sessionPersistence;
 
+    /**
+     * Starts sockets and sets BalancingBehaviour
+     */
     public Balancing(BalancingBehaviour behaviour) {
         this.sessionPersistence = new HashMap<>();
         this.behaviour = behaviour;
@@ -29,6 +32,9 @@ public class Balancing {
         this.ssh.start();
     }
 
+    /**
+     * Initializes sockets and CommandHandlers
+     */
     private void initSockets() {
         this.csh = new SocketHandler(this, 17171);
         this.ssh = new SocketHandler(this, 17172);
@@ -37,6 +43,12 @@ public class Balancing {
         this.ssh.setCommandHandler(new ServerCommandHandler(this.ssh));
     }
 
+    /**
+     * Handles Sessionpersistence and creates Calculationrequest with the chosen server
+     *
+     * @param client
+     * @return
+     */
     public CalculationRequest balance(ClientThread client) {
         ClientThread chosenServer;
         if(LoadBalancer.PERSIST_SESSION && sessionPersistence.containsKey(client.getIp())){
