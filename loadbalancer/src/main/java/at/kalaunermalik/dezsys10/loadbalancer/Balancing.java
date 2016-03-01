@@ -19,7 +19,6 @@ public class Balancing {
     private SocketHandler ssh;
     private Set<CalculationRequest> requests;
     private Map<String, ClientThread> sessionPersistence;
-    public static final boolean PERSIST_SESSION = true;
 
     public Balancing(BalancingBehaviour behaviour) {
         this.sessionPersistence = new HashMap<>();
@@ -40,7 +39,7 @@ public class Balancing {
 
     public CalculationRequest balance(ClientThread client) {
         ClientThread chosenServer;
-        if(PERSIST_SESSION && sessionPersistence.containsKey(client.getIp())){
+        if(LoadBalancer.PERSIST_SESSION && sessionPersistence.containsKey(client.getIp())){
             chosenServer = sessionPersistence.get(client.getIp());
         }else {
             chosenServer = this.behaviour.chooseServer(this.ssh.getClients());

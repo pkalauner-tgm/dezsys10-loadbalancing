@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class LoadBalancer {
     private static final Logger LOGGER = LogManager.getLogger(LoadBalancer.class);
+    public static final boolean PERSIST_SESSION = true;
 
     /**
      * Main-Method
