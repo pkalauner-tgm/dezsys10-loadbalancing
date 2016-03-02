@@ -50,10 +50,11 @@ public class Balancing {
      * @return
      */
     public CalculationRequest balance(ClientThread client) {
-        ClientThread chosenServer;
-        if(LoadBalancer.PERSIST_SESSION && sessionPersistence.containsKey(client.getIp())){
-            chosenServer = sessionPersistence.get(client.getIp());
-        }else {
+        if (ssh.getClients().isEmpty())
+            return null;
+        ClientThread chosenServer = LoadBalancer.PERSIST_SESSION ? sessionPersistence.get(client.getIp()) : null;
+
+        if (chosenServer == null || !ssh.getClients().contains(chosenServer)) {
             chosenServer = this.behaviour.chooseServer(this.ssh.getClients());
             this.sessionPersistence.put(client.getIp(), chosenServer);
         }
@@ -70,7 +71,7 @@ public class Balancing {
      * Gets a CalculationRequest by the given UUID
      *
      * @param uuid UUID of t
-     * @return
+     * @return CalculationRequest
      */
     public CalculationRequest getRequestByUuid(UUID uuid) {
         for (CalculationRequest request : this.requests)

@@ -23,12 +23,13 @@ public class ClientCommandHandler extends CommandHandler {
 
        CalculationRequest request = sh.balancing.balance(clientThread);
 
-        if (request.getCalculationServer() != null) {
+        if (request != null && request.getCalculationServer() != null) {
             LOGGER.info("Sending calculation command to server " + request.getCalculationServer().getIp());
             request.getCalculationServer().newCalculation();
             request.getCalculationServer().sendCommand(request.getUuid().toString() + " " + command);
         } else {
             LOGGER.error("No servers available!");
+            clientThread.sendCommand("No servers available!");
         }
     }
 }
