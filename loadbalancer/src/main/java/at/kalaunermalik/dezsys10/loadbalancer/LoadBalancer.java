@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class LoadBalancer {
     private static final Logger LOGGER = LogManager.getLogger(LoadBalancer.class);
     public static final boolean PERSIST_SESSION = true;
+    //public static final boolean PERSIST_SESSION = false;
 
     /**
      * Main-Method
@@ -20,5 +21,6 @@ public class LoadBalancer {
     public static void main(String[] args) {
         LOGGER.info("Starting LoadBalancer...");
         new Balancing(new LeastConnectionsBehaviour());
+        //new Balancing(new WeightedRoundRobin(1,2,1));
     }
 }
